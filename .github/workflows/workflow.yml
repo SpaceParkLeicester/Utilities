@@ -1,11 +1,18 @@
 name: Pytest Workflow
 
 on:
+  pull_request:
   push:
-    paths:
-      - "tests/**"
+    branches: [main]
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.0
+
   GitHub-Tests:
     runs-on: ubuntu-latest
     permissions:

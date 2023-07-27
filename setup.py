@@ -10,11 +10,11 @@ long_description = (this_directory / "README.md").read_text()
 install_requires = (this_directory / "requirements.txt").read_text().splitlines()
 
 setup(
-    name="SPL_project",
+    name="Spatial utility functions",
     version="0.0.1",
-    description="Your repository",
-    author="Your name",
-    author_email="kjt7@leicester.ac.uk",
+    description="This package consists of geo-spatial and satellite data utility functions and modules",
+    author="Vardhan Raj Modi",
+    author_email="vrm6@leicester.ac.uk",
     company="Space Park Leicester",
     install_requires=install_requires,
     long_description=long_description,

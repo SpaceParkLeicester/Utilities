@@ -10,7 +10,7 @@ from tqdm import tqdm
 class download_from_url:
     """Function to download from url
 
-    Source: https://stackoverflow.com/questions/37573483/progress-bar-while-download-file-over-http-with-requests # noqa: E501
+    Source: https://stackoverflow.com/questions/37573483/progress-bar-while-download-file-over-http-with-requests # noqa : E501
     """
 
     def __init__(self, log: isinstance = None, url_link: str = None) -> None:
@@ -64,7 +64,7 @@ class download_from_url:
         os.remove(file_path)
 
 
-class download(download_from_url):
+class download_url(download_from_url):
     """Download zip files"""
 
     def __init__(self, log: isinstance = None, url_link: str = None) -> None:
@@ -78,7 +78,24 @@ class download(download_from_url):
         super().__init__(log, url_link)
         self.log = log
 
-    def extract(self, download_path: str = None, file_name: str = None) -> None:
+    @staticmethod
+    def is_downloadable(url_link: str = None) -> bool:
+        r"""Checking if a URL link is downloadable
+
+        Args:\n
+            url_link: A URL link.
+        """
+        # Source: https://www.codementor.io/@aviaryan/downloading-files-from-urls-in-python-77q3bs0un # noqa: E501
+        h = requests.head(url_link, allow_redirects=True)
+        header = h.headers
+        content_type = header.get("content-type")
+        if "text" in content_type.lower():
+            return False
+        if "html" in content_type.lower():
+            return False
+        return True
+
+    def main(self, download_path: str = None, file_name: str = None) -> None:
         """Function to download and extract files
 
         Args:
@@ -88,11 +105,14 @@ class download(download_from_url):
         file_path = os.path.join(download_path, f"{file_name}.zip")
 
         if not os.path.exists(file_path):
-            # Downloading
-            super().commence(file_path)
-            time.sleep(10)
+            if self.is_downloadable(self.url_link):
+                # Downloading
+                super().commence(file_path)
+                time.sleep(10)
 
-            # Extracting
-            super().extract_data(file_path, download_path)
+                # Extracting
+                super().extract_data(file_path, download_path)
+            else:
+                self.log.debug("URL link is not downloadable")
         else:
             self.log.info(f"{file_name} already exists in {download_path}")

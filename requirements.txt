@@ -1,2 +1,2 @@
-colorlog
 pytest
+pre-commit

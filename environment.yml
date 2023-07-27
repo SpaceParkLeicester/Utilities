@@ -1,4 +1,4 @@
-name: project_env
+name: utils
 channels:
   - anaconda
   - conda-forge
@@ -6,3 +6,6 @@ channels:
 dependencies:
   - python=3.9
   - pip
+  - tqdm
+  - colorlog
+  - requests

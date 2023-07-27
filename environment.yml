@@ -9,3 +9,6 @@ dependencies:
   - tqdm
   - colorlog
   - requests
+  - pip:
+      - pytest
+      - pre-commit

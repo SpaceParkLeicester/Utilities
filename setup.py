@@ -12,7 +12,7 @@ install_requires = (this_directory / "requirements.txt").read_text().splitlines(
 setup(
     name="Spatial utility functions",
     version="0.0.1",
-    description="This package consists of geo-spatial and satellite data utility functions and modules",
+    description="Useful utility functions",
     author="Vardhan Raj Modi",
     author_email="vrm6@leicester.ac.uk",
     company="Space Park Leicester",

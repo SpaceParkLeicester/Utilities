@@ -1,0 +1,8 @@
+name: project_env
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip

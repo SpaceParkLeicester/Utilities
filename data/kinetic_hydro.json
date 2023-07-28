@@ -1,0 +1,13 @@
+{
+    "grwl": {
+        "grwl_mask" : "https://zenodo.org/record/1297434/files/GRWL_mask_V01.01.zip?download=1",
+        "grwl_vector": "https://zenodo.org/record/1297434/files/GRWL_vector_V01.01.zip?download=1"
+    },
+    "hydrosheds":{
+        "hydroatlas": {
+            "riveratlas": "https://figshare.com/ndownloader/files/20087486",
+            "basinatlas": "https://figshare.com/ndownloader/files/20087237",
+            "lakeatlas": "https://figshare.com/ndownloader/files/35959547"
+        }
+    }
+}

@@ -37,5 +37,3 @@ class json_file:
         for key, value in self.recursive_items(self.data):
             if key == name:
                 return value
-            else:
-                self.log.debug(f"{name} is not in the URL file")

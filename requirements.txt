@@ -1,5 +1,8 @@
+python=3.9
 pytest
 pre-commit
 tqdm
 requests
 colorlog
+pandas
+requests

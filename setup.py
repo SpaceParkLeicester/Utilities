@@ -10,7 +10,7 @@ long_description = (this_directory / "README.md").read_text()
 install_requires = (this_directory / "requirements.txt").read_text().splitlines()
 
 setup(
-    name="Spatial utility functions",
+    name="utils",
     version="0.0.1",
     description="Useful utility functions",
     author="Vardhan Raj Modi",

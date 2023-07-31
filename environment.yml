@@ -10,6 +10,8 @@ dependencies:
   - colorlog
   - requests
   - pandas
+  - click
+  - google-cloud-storage
   - pip:
       - pytest
       - pre-commit

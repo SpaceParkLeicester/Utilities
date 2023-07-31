@@ -5,3 +5,5 @@ requests
 colorlog
 pandas
 requests
+google-cloud-storage
+click

@@ -1,2 +1,2 @@
 """Import libraries"""
-from .shapefile import shape_file
+from .vector import shape_file

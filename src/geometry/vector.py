@@ -62,7 +62,7 @@ class geo_pandas:
 
     def esri_shapefile(self) -> None:
         r"""Write GeoPandas dataframe into a shape file"""
-        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.shp")
+
         self.write_dataframe(
             log=self.log,
             df=self.df,
@@ -70,10 +70,11 @@ class geo_pandas:
             save_folder=self.save_folder,
             file_name=self.file_name,
         )
+        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.shp")
 
     def geo_json(self) -> None:
         """Write Geopandas dataframe as a GeoJSON file"""
-        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.json")
+
         self.write_dataframe(
             log=self.log,
             df=self.df,
@@ -81,3 +82,4 @@ class geo_pandas:
             save_folder=self.save_folder,
             file_name=self.file_name,
         )
+        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.json")

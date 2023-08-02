@@ -12,6 +12,7 @@ dependencies:
   - pandas
   - click
   - google-cloud-storage
+  - pyshp
   - pip:
       - pytest
       - pre-commit

@@ -1,17 +1,11 @@
-import logging
-from logging import config
-
-import click
 from google.api_core.exceptions import BadRequest
 from google.cloud import storage
-
-config.fileConfig("logger.ini")
 
 
 class gcloud_auth:
     """Functions related to authentication"""
 
-    def __init__(self, log: isinstance = logging, project_id: str = None) -> None:
+    def __init__(self, log: isinstance = None) -> None:
         """Initiating the variables
 
         Args:
@@ -30,14 +24,3 @@ class gcloud_auth:
         except BadRequest as b:
             self.log.debug("There was a problem with authentication")
             self.log.debug(f"{b}")
-
-
-@click.command()
-@click.option("--project_id", help="Enter the project ID")
-def main(project_id: str = None):
-    gcloud = gcloud_auth(project_id=project_id)
-    gcloud.authenticate()
-
-
-if __name__ == "__main__":
-    main()

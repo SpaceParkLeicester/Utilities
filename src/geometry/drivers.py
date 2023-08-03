@@ -1,10 +1,10 @@
-"""Functions related to an vector data"""
+"""Functions related to a vector data"""
 import os
 
 import pandas as pd
 
 
-class geo_pandas:
+class vector:
     """Shape file functions"""
 
     def __init__(
@@ -19,6 +19,8 @@ class geo_pandas:
         Args:\n
             log: Logger ini file.
             df: A GeoPandas dataframe.
+            save_folder: A folder path to save file.
+            file_name: Name of the file to be saved
         """
         self.log = log
         self.df = df
@@ -40,8 +42,10 @@ class geo_pandas:
         r"""Write dataframe into specified format
 
         Args:\n
+            log: Logger ini file.
             df: A GeoPandas dataframe.
-            driver: Supported drivers.
+            save_folder: A folder path to save file.
+            file_name: Name of the file to be saved
         """
         extensions = {"ESRI Shapefile": "shp", "GeoJSON": "json"}
         file_path = os.path.join(save_folder, f"{file_name}.{extensions[driver]}")
@@ -56,7 +60,7 @@ class geo_pandas:
                     log.info(f"Find the {driver} file below!")
                     log.info(f"{file_path}")
                 else:
-                    log.debug(f"Shape file {file_path} already exists")
+                    log.debug(f"{file_path} already exists")
         else:
             log.debug(f"{file_name}.{extensions[driver]} exists in the folder: {save_folder}")
 

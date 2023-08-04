@@ -1,3 +1,4 @@
+"""Function to authenticate GCP account"""
 from google.api_core.exceptions import BadRequest
 from google.cloud import storage
 
@@ -13,11 +14,11 @@ class gcloud_auth:
         """
         self.log = log
 
-    def authenticate(self):
+    def authenticate(self, project_id: str = None):
         """Authenticate Google Cloud"""
         try:
-            self.storage_client = storage.Client()
-            self.buckets = self.storage_client.list_buckets()
+            self.client = storage.Client(project=project_id)
+            self.buckets = self.client.list_buckets()
             self.bucket_names = [bucket.name for bucket in self.buckets]
             self.log.info(f"List of buckets: {self.bucket_names}")
             self.log.info("Authentication successful")

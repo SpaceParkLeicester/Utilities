@@ -6,3 +6,5 @@ colorlog
 pandas
 click
 geopandas
+google-cloud-storage
+google-api-python-client

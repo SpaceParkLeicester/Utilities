@@ -12,6 +12,7 @@ dependencies:
   - pandas
   - click
   - google-cloud-storage
+  - google-api-python-client
   - geopandas
   - pip:
       - pytest

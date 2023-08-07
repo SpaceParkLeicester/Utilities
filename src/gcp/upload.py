@@ -1,7 +1,6 @@
 """Upload file to GCP bucket"""
 import logging
 import os
-import shutil
 import subprocess as sp
 from logging import config
 
@@ -41,56 +40,56 @@ class GoogleBuckets(gcloud_auth):
         self.bucket_path = bucket_path
         self.bucket_name = bucket_name
 
-    def upload(self) -> None:
-        """Uploading to the GCP buckets"""
-        # Getting the filename
-        self.filename = os.path.basename(self.local_filepath)
-        self.abs_filepath = os.path.join(os.getcwd(), self.local_filepath)
+    def upload_files(self, local_folder_path: str = None, format: str = None) -> None:
+        r"""Upload multiple files
 
-        if os.path.exists(self.abs_filepath):
-            # Listing files in the bucket
-            self.bucket_name = self.bucket_path.split("/")[0]
-            try:
-                self.blobs = self.client.list_blobs(self.bucket_name)
-                self.bucket_files = [blob.name.split("/")[-1] for blob in self.blobs]
-            except NotFound:
-                self.log(f"bucket{self.bucket_name} is not found in GCP")
-            else:
-                if self.filename not in self.bucket_files:
-                    self.log.info(f"file {self.filename} not found in GCP")
-                    self.log.info("Commencing upload!")
-                    # Uploading file
-                    sp.check_call(
-                        f"gsutil cp -r {self.abs_filepath} gs://{self.bucket_name}/{self.bucket_path}",  # noqa : E501
-                        shell=True,
-                        stdout=sp.PIPE,
-                    )
-                    self.log.info("Upload finished")
+        Args:\n
+            format: Select a format that needs to be only uploaded. eg: 'json'
+            local_folder_path: Local folder path of the files.
+        """
+        files_list = os.listdir(local_folder_path)
+        if format is not None:
+            selected_files = [
+                file for file in files_list if os.path.basename(file).split(".")[1] == format
+            ]  # noqa = E501
+            file_paths = [os.path.join(local_folder_path, file) for file in selected_files]
+        else:
+            file_paths = [os.path.join(local_folder_path, file) for file in files_list]
+
+        for file in file_paths:
+            abs_file_path = os.path.join(os.getcwd(), file)
+            if os.path.exists(file):
+                try:
+                    self.blobs = self.client.list_blobs(self.bucket_name)
+                    self.bucket_files = [blob.name.split("/")[-1] for blob in self.blobs]
+                except NotFound:
+                    self.log(f"bucket{self.bucket_name} is not found in GCP")
                 else:
-                    self.log.debug(f"{self.filename} exists in GCP")
-        else:
-            self.log.debug(f"file {self.local_filepath} does not exist")
-
-    def remove_uploaded_files(self) -> None:
-        """Removing files from local system"""
-        # Removing file
-        if os.path.exists(self.abs_filepath):
-            shutil.rmtree(self.abs_filepath, ignore_errors=True)
-        else:
-            self.log.debug(f"file {self.abs_filepath} does not exist")
+                    if file not in self.bucket_files:
+                        self.log.info(f"file {file} not found in GCP")
+                        self.log.info("Commencing upload!")
+                        # Uploading file
+                        sp.check_call(
+                            f"gsutil cp -r {abs_file_path} gs://{self.bucket_name}/{file}",  # noqa : E501
+                            shell=True,
+                            stdout=sp.PIPE,
+                        )
+                        self.log.info("Upload finished")
+                    else:
+                        self.log.debug(f"{file} exists in GCP")
+            else:
+                self.log.debug(f"file {file} does not exist")
 
 
 @click.command()
-@click.option("--file_path", help="Relative path to the file.")
-@click.option("--bucket_path", help="Bucket Path without 'gs://bucket_name")
-@click.option("--bucket_name", help="Name of the bucket.")
-def main(file_path, bucket_path, bucket_name):
+@click.option("--project_id", help="GCP Project ID")
+@click.option("--bucket", help="Name of the bucket.")
+@click.option("--file_format", help="Format of the files that needs to be uploaded.")
+@click.option("--local_folder", help="Path to the local folder.")
+def main(project_id, bucket, local_folder, file_format):
     """Main function"""
-    src = GoogleBuckets(
-        local_filepath=file_path, bucket_path=bucket_path, bucket_name=bucket_name, log=logging
-    )
-    src.upload()
-    src.remove_uploaded_files()
+    src = GoogleBuckets(project_id=project_id, bucket_name=bucket, log=logging)
+    src.upload_files(format=file_format, local_folder_path=local_folder)
 
 
 if __name__ == "__main__":

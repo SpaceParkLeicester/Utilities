@@ -5,7 +5,8 @@ channels:
   - defaults
 dependencies:
   - python=3.9
-  - pip
+  - pytest
+  - pre-commit
   - tqdm
   - colorlog
   - requests
@@ -14,6 +15,4 @@ dependencies:
   - google-cloud-storage
   - google-api-python-client
   - geopandas
-  - pip:
-      - pytest
-      - pre-commit
+  - pip

@@ -63,7 +63,7 @@ class GoogleBuckets(gcloud_auth):
                     self.blobs = self.client.list_blobs(self.bucket_name)
                     self.bucket_files = [blob.name.split("/")[-1] for blob in self.blobs]
                 except NotFound:
-                    self.log(f"bucket{self.bucket_name} is not found in GCP")
+                    self.log.debug(f"bucket{self.bucket_name} is not found in GCP")
                 else:
                     if file not in self.bucket_files:
                         self.log.info(f"file {file} not found in GCP")

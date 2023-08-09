@@ -86,4 +86,4 @@ class vector:
             save_folder=self.save_folder,
             file_name=self.file_name,
         )
-        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.json")
+        self.file_path = os.path.join(self.save_folder, f"{self.file_name}.geojson")

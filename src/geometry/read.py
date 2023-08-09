@@ -15,5 +15,7 @@ def geo_pandas(file_path: str = None) -> pd.DataFrame:
         "Started reading the data into GeoPandas dataframe....", "Finished reading", 0.05
     ).start()  # noqa : E501
     df = gpd.read_file(file_path)
+    df = df.to_crs(crs=32636)
+    df = df.to_crs(crs=4326)
     loader.stop()
     return df

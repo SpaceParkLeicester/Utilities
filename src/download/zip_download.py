@@ -102,9 +102,13 @@ class download_url(download_from_url):
             download_path: Path of the download folder
             file_name: Name of the file downloading without ext
         """
+        if not os.path.exists(download_path):
+            os.makedirs(download_path)
+
         file_path = os.path.join(download_path, f"{file_name}.zip")
 
-        if not os.path.exists(file_path):
+        if len(os.listdir) == 0:
+            self.log.info(f"{download_path} appears to be empty!")
             if self.is_downloadable(self.url_link):
                 # Downloading
                 super().commence(file_path)

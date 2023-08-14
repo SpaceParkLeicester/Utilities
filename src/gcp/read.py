@@ -1,44 +1,41 @@
+import json
 import os
-from urllib.parse import urlparse
 
-from google.cloud.storage import Client
+from google.api_core.exceptions import NotFound
 
 from src.gcp import gcloud_auth
+from src.utils import Loader
 
 
 class gcloud_read(gcloud_auth):
     """Read the blob data"""
 
-    def __init__(self, log: isinstance = None, bucket: str = None) -> None:
+    def __init__(self, log: isinstance = None, project_id: str = None) -> None:
         r"""Defining variables
 
         Args:\n
             log: custom logger ini file.
-            bucket: Name of the storage bucket.
+            project_id: GCP project ID.
         """
-        self.bucket = bucket
         super().__init__(log)
-        super().authenticate()
+        super().authenticate(project_id)
 
-    @staticmethod
-    def gcs_shape_files(
-        storage_client: Client = None,
-        bucket_path: str = None,
-        file_name: str = None,
-        extension: str = None,
-    ):
-        """Get the gcs shape file paths
+    def geojson(self, bucket_name: str = None, file_path: str = None):
+        r"""Read GeoJSON data into dictionary variable
 
-        Args:
-            bucket_path: gcs bucket path, eg: 'gs://bucket_name/path'.
-            file_name: Name of the file.
-            file_extension: Extension of the searching file
-
-        Source:https://medium.com/towards-data-engineering/get-keys-inside-the-gcs-bucket-at-the-subfolder-level-python-a9c82ca52563 # noqa: E501
+        Args:\n
+            bucket_name: Name of the bucket.
+            file_path: Path to the file in the bucket.
         """
-        gcs_path = urlparse(bucket_path, allow_fragments=False)
-        bucket_name, key = gcs_path.netloc, gcs_path.path.lstrip("/")
-        blobs = storage_client.list_blobs(bucket_name, prefix=key)
-        files = [file.name for file in blobs if file.name.endswith(extension)]
-        files = [file for file in files if os.path.basename(file).split(".")[0] == file_name]
-        return files[0]
+        try:
+            self.file_name = os.path.basename(file_path).split(".")[0]
+            self.bucket = self.client.get_bucket(bucket_name)
+            self.blob = self.bucket.blob(file_path)
+            self.loading = Loader(
+                f"Loading the contents of {self.file_name} GeoJSON file...", "Done", 0.05
+            ).start()
+            self.contents = self.blob.download_as_string().decode("utf-8")
+            self.loaded_content = json.loads(self.contents)
+            self.loading.stop()
+        except NotFound as e:
+            self.log.debug(f"Either bucket or the path to the file are not correct\n{e}")

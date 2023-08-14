@@ -91,9 +91,10 @@ class download_url(download_from_url):
         content_type = header.get("content-type")
         if "text" in content_type.lower():
             return False
-        if "html" in content_type.lower():
+        elif "html" in content_type.lower():
             return False
-        return True
+        else:
+            return True
 
     def main(self, download_path: str = None, file_name: str = None) -> None:
         """Function to download and extract files

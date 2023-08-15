@@ -108,7 +108,7 @@ class download_url(download_from_url):
 
         file_path = os.path.join(download_path, f"{file_name}.zip")
 
-        if len(os.listdir) == 0:
+        if len(os.listdir(download_path)) == 0:
             self.log.info(f"{download_path} appears to be empty!")
             if self.is_downloadable(self.url_link):
                 # Downloading

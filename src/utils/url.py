@@ -15,7 +15,7 @@ def url_parse(url):
     path = parsed_url.path
     filename = os.path.basename(path)
     filename_without_extension, file_extension = os.path.splitext(filename)
-    return file_extension
+    return file_extension, filename_without_extension, filename
 
 
 def read_json_url(url) -> Dict:

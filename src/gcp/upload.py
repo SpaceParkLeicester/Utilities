@@ -18,26 +18,20 @@ class GoogleBuckets(gcloud_auth):
     def __init__(
         self,
         log: isinstance = None,
-        local_filepath: str = None,
         project_id: str = None,
         bucket_name: str = None,
-        bucket_path: str = None,
     ) -> None:
         """Initiating Google Client
 
         Args:
             log: custom logger ini file.
-            local_filepath: Relative path of the file needs to be uploaded.
             project_id: GCP project ID.
             bucket_name: Name of the bucket.
-            bucket_path: bucket path of the file uploading.
             log: instance of custom logger function.
         """
         super().__init__(log)
         super().authenticate(project_id=project_id)
         self.log = log
-        self.local_filepath = local_filepath
-        self.bucket_path = bucket_path
         self.bucket_name = bucket_name
 
     def upload_files(self, local_folder_path: str = None, format: str = None) -> None:
@@ -83,12 +77,12 @@ class GoogleBuckets(gcloud_auth):
 
 @click.command()
 @click.option("--project_id", help="GCP Project ID")
-@click.option("--bucket", help="Name of the bucket.")
+@click.option("--bucket_name", help="Name of the bucket.")
 @click.option("--file_format", help="Format of the files that needs to be uploaded.")
 @click.option("--local_folder", help="Path to the local folder.")
-def main(project_id, bucket, local_folder, file_format):
+def main(project_id, bucket_name, local_folder, file_format):
     """Main function"""
-    src = GoogleBuckets(project_id=project_id, bucket_name=bucket, log=logging)
+    src = GoogleBuckets(project_id=project_id, bucket_name=bucket_name, log=logging)
     src.upload_files(format=file_format, local_folder_path=local_folder)
 
 

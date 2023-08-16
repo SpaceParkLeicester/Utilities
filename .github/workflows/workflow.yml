@@ -5,6 +5,10 @@ on:
     paths:
       - "tests/**"
 
+env:
+  PROJECT_ID: kinetic-hydro
+  BUCKET_NAME: rivers-kh
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest

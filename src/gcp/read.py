@@ -35,6 +35,7 @@ class gcloud_read(gcloud_auth):
                 f"Loading the contents of {self.file_name} GeoJSON file...", "Done", 0.05
             ).start()
             self.contents = self.blob.download_as_string().decode("utf-8")
+            self.bytes = self.blob.download_as_bytes()
             self.loaded_content = json.loads(self.contents)
             self.loading.stop()
         except NotFound as e:

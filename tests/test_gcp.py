@@ -1,4 +1,5 @@
 """Testing GCP functions"""
+import os
 import logging
 from logging import config
 from src.gcp import gcloud_auth, gcloud_read
@@ -17,8 +18,8 @@ def test_auth():
 
 def test_read_geojson():
     """Testing to read GeoJSON data from cloud"""
-    project_id = "kinetic-hydro"
-    bucket_name = "rivers-kh"
+    project_id = os.environ.get("PROJECT_ID")
+    bucket_name = os.environ.get("BUCKET_NAME")
     file_path = "data/outputs/uganda/grwl/vector/NA35.json"
     src = gcloud_read(log=logging, project_id=project_id)
     src.geojson(bucket_name=bucket_name, file_path=file_path)

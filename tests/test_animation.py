@@ -1,4 +1,4 @@
-from src.utils import Loader
+from utilities.utils import Loader
 from time import sleep
 
 

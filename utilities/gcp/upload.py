@@ -7,7 +7,7 @@ from logging import config
 import click
 from google.api_core.exceptions import NotFound
 
-from src.gcp import gcloud_auth
+from utilities.gcp import gcloud_auth
 
 config.fileConfig("logger.ini")
 

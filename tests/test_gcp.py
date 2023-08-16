@@ -2,7 +2,7 @@
 import os
 import logging
 from logging import config
-from src.gcp import gcloud_auth, gcloud_read
+from utilities.gcp import gcloud_auth, gcloud_read
 
 config.fileConfig("logger.ini")
 

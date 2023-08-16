@@ -1,4 +1,4 @@
-from src.download import download_url
+from utilities.download import download_url
 import logging
 from logging import config
 

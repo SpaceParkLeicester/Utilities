@@ -1,4 +1,4 @@
-from src.utils import json_file
+from utilities.utils import json_file
 import os
 import logging
 from logging import config

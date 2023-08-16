@@ -3,8 +3,8 @@ import os
 
 from google.api_core.exceptions import NotFound
 
-from src.gcp import gcloud_auth
-from src.utils import Loader
+from utilities.gcp import gcloud_auth
+from utilities.utils import Loader
 
 
 class gcloud_read(gcloud_auth):

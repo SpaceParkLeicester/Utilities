@@ -7,7 +7,7 @@ import fsspec
 import geopandas as gpd
 import pandas as pd
 
-from src.utils import Loader
+from utilities.utils import Loader
 
 logging.getLogger("fiona").setLevel(logging.WARNING)
 

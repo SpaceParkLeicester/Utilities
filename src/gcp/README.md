@@ -11,5 +11,3 @@ __Note__: If you are running the project on a remote machine, Run `gcloud auth l
 * Run `gcloud auth login` to authenticate google account in your IDE.
 * After authentication you can see the active accounts using the command `gcloud auth list`, in which there is a `*` on the active account. Along with this you can see projects using `gcloud projects list`, and set a default project using `gcloud config set project 'PROJECT_ID'`
 * When running a Google cloud VM instance, to set GCP SSH in config, you need to have [Google SDK](https://cloud.google.com/sdk/docs/install) installed in your system first, after installing open the Google SDK console and follow the instructions, then set Google VM SSH in `config` by running `gcloud compute config-ssh`.
-
-# TODO: There is a python package "[geobeam](https://github.com/GoogleCloudPlatform/dataflow-geobeam)" to read GIS data from Google cloud data storage.

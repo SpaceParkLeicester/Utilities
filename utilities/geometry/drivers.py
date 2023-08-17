@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 
-class vector:
+class save_vector:
     """Shape file functions"""
 
     def __init__(

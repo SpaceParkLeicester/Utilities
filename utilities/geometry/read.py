@@ -27,7 +27,7 @@ def geo_pandas(file_path: str = None) -> pd.DataFrame:
     r"""reading local file into a GeoPandas dataframe
 
     Args:\n
-        file_path: Pat to the shape file.
+        file_path: Path to the shape file.
     """
     loader = Loader(
         "Started reading the data into GeoPandas dataframe....",

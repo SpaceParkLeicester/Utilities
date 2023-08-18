@@ -20,8 +20,8 @@ class gcloud_read(gcloud_auth):
         super().__init__(log)
         super().authenticate(project_id)
 
-    def geojson(self, bucket_name: str = None, file_path: str = None):
-        r"""Read GeoJSON data into dictionary variable
+    def json_data(self, bucket_name: str = None, file_path: str = None):
+        r"""Read JSON data into dictionary variable
 
         Args:\n
             bucket_name: Name of the bucket.

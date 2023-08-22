@@ -1,6 +1,6 @@
 """Functions related to a vector data"""
 import os
-
+from geopandas.geodataframe import GeoDataFrame
 import pandas as pd
 
 
@@ -10,7 +10,7 @@ class save_vector:
     def __init__(
         self,
         log: isinstance = None,
-        df: pd.DataFrame = None,
+        df: GeoDataFrame = None,
         save_folder: str = None,
         file_name: str = None,
     ) -> None:
@@ -34,7 +34,7 @@ class save_vector:
     @staticmethod
     def write_dataframe(
         log: isinstance = None,
-        df: pd.DataFrame = None,
+        df: GeoDataFrame = None,
         driver: str = None,
         save_folder: str = None,
         file_name: str = None,

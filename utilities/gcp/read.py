@@ -1,6 +1,7 @@
 import json
 import os
-
+import geopandas as gpd
+from shapely.geometry import shape
 from google.api_core.exceptions import NotFound
 
 from utilities.gcp import gcloud_auth
@@ -21,7 +22,7 @@ class gcloud_read(gcloud_auth):
         super().authenticate(project_id)
 
     def json_data(self, bucket_name: str = None, file_path: str = None):
-        r"""Read JSON data into dictionary variable
+        r"""Read JSON data into dictionary variable and geopandas dataframe
 
         Args:\n
             bucket_name: Name of the bucket.
@@ -37,6 +38,15 @@ class gcloud_read(gcloud_auth):
             self.contents = self.blob.download_as_string().decode("utf-8")
             self.bytes = self.blob.download_as_bytes()
             self.loaded_content = json.loads(self.contents)
+            self.loading.stop()
+
+            self.loading = Loader(
+                f"Reading the contents of {self.file_name} as GeoPandas dataframe....", "Done", 0.05
+            )
+            self.feature_list = [features for _, features in self.loaded_content.items()]
+            self.feature_list = [feature for feature in self.feature_list[1]]
+            self.geometries = [shape(feature["geometry"]) for feature in self.feature_list]
+            self.df = gpd.GeoDataFrame(data = self.feature_list, geometry = self.geometries)
             self.loading.stop()
         except NotFound as e:
             self.log.debug(f"Either bucket or the path to the file are not correct\n{e}")

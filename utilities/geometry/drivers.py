@@ -70,7 +70,7 @@ class save_vector:
         self.write_dataframe(
             log=self.log,
             df=self.df,
-            driver="ESRi Shapefile",
+            driver="ESRI Shapefile",
             save_folder=self.save_folder,
             file_name=self.file_name,
         )

@@ -180,11 +180,6 @@ class GoogleMapTileDownload:
           return ([[lower, left], [upper, right]])
     
 
-# @click.command()    
-# @click.option("--latitude", default = 53.64027160050831, help = "Enter Latitude")
-# @click.option("--longitude", default = -0.2468039067285641, help = "Enter Longitude")
-# @click.option("--zoom", default = 17, help = "Enter the Zoom level")
-# @click.option("--file_name", default = "test", help = "Name in which the file is saved")
 def GoogleMapTileBounds(latitude, longitude, zoom, file_name):
     # Create a new instance of GoogleMap Downloader
     gmd = GoogleMapTileDownload(latitude,longitude, zoom, GoogleMapTileLayers.SATELLITE)
@@ -209,5 +204,13 @@ def GoogleMapTileBounds(latitude, longitude, zoom, file_name):
         print(f"Tile bound coordinates: {bounds_coords}")
         return bounds_coords
 
+@click.command()    
+@click.option("--latitude", default = 53.64027160050831, help = "Enter Latitude")
+@click.option("--longitude", default = -0.2468039067285641, help = "Enter Longitude")
+@click.option("--zoom", default = 17, help = "Enter the Zoom level")
+@click.option("--file_name", default = "test", help = "Name in which the file is saved")
+def main(latitude, longitude, zoom, file_name):
+   src = GoogleMapTileBounds(latitude, longitude, zoom, file_name)
+
 if __name__ == "__main__":
-   GoogleMapTileBounds()
+   main()

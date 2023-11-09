@@ -49,6 +49,7 @@ class GoogleMapSession:
             assert self.api_key is not None
         except AssertionError:
             self.log.debug("Provide an API Key")
+            self.log.debug("Add API key as 'GOOGLE_MAPS_API' in env variables")
         else:
             url = "https://tile.googleapis.com/v1/createSession?key=" + self.api_key
             data = {

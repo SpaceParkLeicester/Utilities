@@ -2,7 +2,8 @@ name: Pytest Workflow
 
 on:
   push:
-    - main
+    branches:
+      - main
 
 env:
   PROJECT_ID: kinetic-hydro

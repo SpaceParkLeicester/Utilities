@@ -1,7 +1,7 @@
 """Functions related to a vector data"""
 import os
+
 from geopandas.geodataframe import GeoDataFrame
-import pandas as pd
 
 
 class save_vector:

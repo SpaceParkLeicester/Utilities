@@ -1,9 +1,10 @@
 import json
 import os
-import pandas as pd
+
 import geopandas as gpd
-from shapely.geometry import shape
+import pandas as pd
 from google.api_core.exceptions import NotFound
+from shapely.geometry import shape
 
 from utilities.gcp import gcloud_auth
 from utilities.utils import Loader
@@ -48,11 +49,10 @@ class gcloud_read(gcloud_auth):
             self.feature_list = [feature for feature in self.feature_list[1]]
             self.geometries = [shape(feature["geometry"]) for feature in self.feature_list]
             self.gdf = gpd.GeoDataFrame(
-                data = self.feature_list, 
-                geometry = self.geometries,
-                crs = "EPSG:4326")
+                data=self.feature_list, geometry=self.geometries, crs="EPSG:4326"
+            )
             self.gdf_properties = pd.json_normalize(self.gdf["properties"])
-            self.df = pd.concat([self.gdf_properties, self.gdf["geometry"]], axis = 1)
+            self.df = pd.concat([self.gdf_properties, self.gdf["geometry"]], axis=1)
             self.loading.stop()
             return self.df
         except NotFound as e:

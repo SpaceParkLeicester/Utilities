@@ -19,5 +19,6 @@ dependencies:
   - fsspec
   - aiohttp
   - pip:
-    - python-dotenv
-    - Pillow
+      - python-dotenv
+      - Pillow
+      - rasterio

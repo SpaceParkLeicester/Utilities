@@ -12,3 +12,4 @@ fsspec
 aiohttp
 Pillow
 python-dotenv
+rasterio

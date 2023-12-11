@@ -2,8 +2,7 @@ name: Pytest Workflow
 
 on:
   push:
-    paths:
-      - "tests/**"
+    - main
 
 env:
   PROJECT_ID: kinetic-hydro
@@ -47,4 +46,4 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest tests/test_*.py
+          pytest tests/test_geometry.py

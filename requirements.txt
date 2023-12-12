@@ -13,3 +13,4 @@ aiohttp
 Pillow
 python-dotenv
 rasterio
+geojson

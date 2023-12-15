@@ -14,3 +14,4 @@ Pillow
 python-dotenv
 rasterio
 geojson
+folium

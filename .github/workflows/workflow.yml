@@ -41,7 +41,7 @@ jobs:
         name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v2"
         with:
-          project_id: "my-project"
+          project_id: "kinetic-hydro"
           workload_identity_provider: "projects/960986078476/locations/global/workloadIdentityPools/github/providers/spl-utilities"
 
       - name: Run tests

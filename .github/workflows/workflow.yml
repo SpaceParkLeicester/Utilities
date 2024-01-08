@@ -48,4 +48,4 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest tests/test_geometry.py
+          pytest tests/test_gcp.py

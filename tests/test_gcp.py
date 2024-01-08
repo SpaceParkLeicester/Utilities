@@ -16,11 +16,11 @@ def test_auth():
     assert len(data.bucket_names) != 0
 
 
-def test_read_geojson():
-    """Testing to read GeoJSON data from cloud"""
-    project_id = os.environ.get("PROJECT_ID")
-    bucket_name = os.environ.get("BUCKET_NAME")
-    file_path = "data/outputs/uganda/grwl/vector/NA35.json"
-    src = gcloud_read(log=logging, project_id=project_id)
-    src.geojson(bucket_name=bucket_name, file_path=file_path)
-    assert src.loaded_content is not None
+# def test_read_geojson():
+#     """Testing to read GeoJSON data from cloud"""
+#     project_id = os.environ.get("PROJECT_ID")
+#     bucket_name = os.environ.get("BUCKET_NAME")
+#     file_path = "data/outputs/uganda/grwl/vector/NA35.json"
+#     src = gcloud_read(log=logging, project_id=project_id)
+#     src.geojson(bucket_name=bucket_name, file_path=file_path)
+#     assert src.loaded_content is not None

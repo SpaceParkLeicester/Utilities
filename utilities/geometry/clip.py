@@ -14,6 +14,7 @@ from rasterio.mask import mask
 from shapely.geometry import mapping, shape
 from shapely.wkt import loads
 
+from osgeo import gdal
 
 class raster_clip:
     """Function to clip the raster data"""
@@ -86,3 +87,27 @@ class raster_clip:
             assert os.path.exists(clipped_raster)
         except AssertionError:
             self.log.debug("Raster data has not been clipped!")
+
+    @staticmethod
+    def with_other_raster(raster_image:str = None, other_raster:str = None, save_file:str = None):
+        r"""Clip raster using other raster extent using Python GDAL
+        
+        Source: https://gis.stackexchange.com/questions/297460/clip-raster-using-mask-other-raster-using-python-gdal
+        
+        Args:\n
+            raster_image: Original raster image that needs to be clipped
+            other_raster: Raster image with smaller extent.
+            save_file: Path to the output File, ends with tif 
+        """
+        maskDs = gdal.Open(other_raster, gdal.GA_ReadOnly)
+        projection=maskDs.GetProjectionRef()
+        geoTransform = maskDs.GetGeoTransform()
+        minX = geoTransform[0]
+        maxY = geoTransform[3]
+        maxX = minX + geoTransform[1] * maskDs.RasterXSize
+        minY = maxY + geoTransform[5] * maskDs.RasterYSize 
+           
+        data=gdal.Open(raster_image, gdal.GA_ReadOnly) 
+        gdal.Translate(save_file,data,format='GTiff',projWin=[minX,maxY,maxX,minY],outputSRS=projection)     
+        return save_file    
+            

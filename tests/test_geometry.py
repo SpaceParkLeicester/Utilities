@@ -2,7 +2,7 @@
 import logging
 from logging import config
 import rasterio as rio
-from utilities.geometry import utm_grid_zones
+from utilities.geometry import utm_grid_zones, raster_clip
 
 config.fileConfig("logger.ini")
 
@@ -19,11 +19,8 @@ def test_raster_data_grid_zones():
 
 def test_grid_zones():
     """Testing WGS84 grid zones"""
-    from pprint import pprint
-
     bounds = [30.0, -100.0, 34.9, -95.0]
     utm = utm_grid_zones(log=logging)
     intervals = utm.equal_intervals_dividend(upper_limit=bounds[2], lower_limit=bounds[0])
     grid_zones = utm.createZoneTable(bounding_box_coords=bounds, intervals=intervals)
     assert len(grid_zones) is not None
-    pprint(grid_zones)
